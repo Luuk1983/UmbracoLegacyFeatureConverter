@@ -37,7 +37,7 @@ namespace AutoBlockList.Services
 		private readonly IContentTypeService _contentTypeService;
 		private readonly IOptions<AutoBlockListSettings> _autoBlockListSettings;
 
-		private static readonly string _partialViewDirectory = "/Views/Partials/blocklist/Components/";
+		private static readonly string _partialViewDirectory = "/Views/Partials/richtext/Components/";
 
 		private static readonly Regex MacroRegex = new Regex(
 			@"(?is)(<\?UMBRACO_MACRO\b[^>]*?/>)|(<!--\?umb_macro\b.*?-->)|(\bumb-macro-holder\b)|(\bdata-macro-alias\b)",
