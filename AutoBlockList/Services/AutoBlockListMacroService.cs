@@ -454,7 +454,7 @@ namespace AutoBlockList.Services
 			currentLayout.Add(layoutItem);
 
 			richTextEditorValue.Blocks.Layout[PropertyEditors.Aliases.TinyMce] = JToken.FromObject(currentLayout);
-			richTextEditorValue.Markup = richTextEditorValue.Markup.ReplaceFirst(macroString, $"<umb-rte-block data-content-udi=\"{contentUdi}\"></umb-rte-block>");
+			richTextEditorValue.Markup = richTextEditorValue.Markup.ReplaceFirst(macroString, $"<umb-rte-block data-content-udi=\"{contentUdi}\"><!--Umbraco-Block--></umb-rte-block>");
 			return richTextEditorValue;
 		}
 
@@ -475,7 +475,7 @@ namespace AutoBlockList.Services
 
 				if (partialviewMacro != null)
 				{
-					string content = partialviewMacro.Content?.Replace("@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage", "@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListModel>") ?? "";
+					string content = partialviewMacro.Content?.Replace("@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage", "@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.RichTextBlockItem>") ?? "";
 
 					using var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
 					_fileSystem.PartialViewsFileSystem.AddFile(_partialViewDirectory + macroPartialView, stream);
