@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.33530.505
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11527.330
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoBlockList.Web", "AutoBlockList.Web\AutoBlockList.Web.csproj", "{17950E8A-6D7D-4CCE-A1FA-4F5975127072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Umbraco.Community.LegacyFeatureConverter.TestInstance", "AutoBlockList.Web\Umbraco.Community.LegacyFeatureConverter.TestInstance.csproj", "{17950E8A-6D7D-4CCE-A1FA-4F5975127072}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoBlockList", "AutoBlockList\AutoBlockList.csproj", "{D1AD61EC-3966-4764-B2A2-8408E36F45D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Umbraco.Community.LegacyFeatureConverter", "AutoBlockList\Umbraco.Community.LegacyFeatureConverter.csproj", "{D1AD61EC-3966-4764-B2A2-8408E36F45D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,181 @@
+<div ng-controller="legacyConverter.overview.controller as vm" id="legacyConverter">
+    <umb-editor-view>
+        <umb-editor-header name="'Legacy Feature Converter'"
+                           hide-description="true"
+                           name-locked="true"
+                           hide-icon="true"
+                           hide-alias="true">
+        </umb-editor-header>
+
+        <umb-editor-container>
+            <div class="umb-logviewer">
+                <div class="umb-logviewer__main-content">
+
+                    <!-- Converter Selection -->
+                    <umb-box>
+                        <umb-box-header title="Select Converter" 
+                                      description="Choose which type of legacy property editor you want to convert.">
+                        </umb-box-header>
+                        <umb-box-content>
+                            <div class="umb-load-indicator" ng-if="vm.loadingConverters"></div>
+                            
+                            <div ng-if="!vm.loadingConverters && vm.converters.length === 0">
+                                <umb-empty-state size="small">
+                                    No converters available.
+                                </umb-empty-state>
+                            </div>
+
+                            <div ng-if="!vm.loadingConverters && vm.converters.length > 0" class="converter-selection">
+                                <div class="converter-card" 
+                                     ng-repeat="converter in vm.converters" 
+                                     ng-click="vm.selectConverter(converter)"
+                                     ng-class="{'selected': vm.selectedConverter && vm.selectedConverter.name === converter.name}">
+                                    <div class="converter-card__header">
+                                        <h4>{{converter.name}}</h4>
+                                        <span class="badge" ng-if="converter.affectedDocumentTypesCount > 0">
+                                            {{converter.affectedDocumentTypesCount}} doc types
+                                        </span>
+                                    </div>
+                                    <p class="converter-card__description">{{converter.description}}</p>
+                                    <div class="converter-card__details">
+                                        <small>
+                                            From: <strong>{{converter.sourceAliases.join(', ')}}</strong>
+                                            → To: <strong>{{converter.targetAlias}}</strong>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </umb-box-content>
+                    </umb-box>
+
+                    <!-- Document Type Selection -->
+                    <umb-box ng-if="vm.selectedConverter">
+                        <umb-box-header title="Select Document Types" 
+                                      description="Choose which document types to convert. Leave unselected to convert all.">
+                        </umb-box-header>
+                        <umb-box-content>
+                            <div class="umb-load-indicator" ng-if="vm.loadingDocumentTypes"></div>
+
+                            <div ng-if="!vm.loadingDocumentTypes && vm.documentTypes.length === 0">
+                                <umb-empty-state size="small">
+                                    No document types found with {{vm.selectedConverter.name}} properties.
+                                </umb-empty-state>
+                            </div>
+
+                            <div ng-if="!vm.loadingDocumentTypes && vm.documentTypes.length > 0">
+                                <div class="mb3">
+                                    <umb-button action="vm.toggleSelectAllDocTypes()"
+                                               type="button"
+                                               button-style="link"
+                                               label="{{vm.allDocTypesSelected ? 'Deselect All' : 'Select All'}}">
+                                    </umb-button>
+                                    <span class="ml2" ng-if="vm.selectedDocumentTypes.length > 0">
+                                        {{vm.selectedDocumentTypes.length}} of {{vm.documentTypes.length}} selected
+                                    </span>
+                                </div>
+
+                                <div class="document-type-list">
+                                    <div class="document-type-item" 
+                                         ng-repeat="docType in vm.documentTypes"
+                                         ng-click="vm.toggleDocumentType(docType)">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" 
+                                                   ng-model="docType.selected"
+                                                   ng-click="$event.stopPropagation()">
+                                            <umb-icon icon="{{docType.icon || 'icon-document'}}" class="mr2"></umb-icon>
+                                            <span>{{docType.name}}</span>
+                                            <small class="ml2 text-muted">({{docType.propertiesCount}} properties)</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </umb-box-content>
+                    </umb-box>
+
+                    <!-- Conversion Options -->
+                    <umb-box ng-if="vm.selectedConverter && vm.documentTypes.length > 0">
+                        <umb-box-header title="Conversion Options" 
+                                      description="Configure how the conversion should run.">
+                        </umb-box-header>
+                        <umb-box-content>
+                            <div class="conversion-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" ng-model="vm.isTestRun">
+                                    <strong>Test Run (Dry Run)</strong>
+                                    <p class="text-muted">
+                                        Simulates the conversion without saving any changes. 
+                                        Use this to verify the conversion will succeed before running it for real.
+                                    </p>
+                                </label>
+                            </div>
+
+                            <div class="mt3 conversion-actions">
+                                <umb-button action="vm.startConversion()"
+                                           type="button"
+                                           button-style="success"
+                                           label="{{vm.isTestRun ? 'Run Test Conversion' : 'Start Conversion'}}"
+                                           icon="icon-axis-rotation"
+                                           disabled="vm.converting || (!vm.selectedDocumentTypes.length && vm.documentTypes.length > 0)"
+                                           state="vm.converting ? 'busy' : 'init'">
+                                </umb-button>
+
+                                <umb-button action="vm.viewHistory()"
+                                           type="button"
+                                           button-style="link"
+                                           label="View Conversion History"
+                                           icon="icon-calendar"
+                                           class="ml2">
+                                </umb-button>
+                            </div>
+                        </umb-box-content>
+                    </umb-box>
+
+                    <!-- Conversion Progress/Results -->
+                    <umb-box ng-if="vm.conversionResult">
+                        <umb-box-header title="{{vm.conversionResult.isTestRun ? 'Test Run' : 'Conversion'}} Results" 
+                                      description="{{vm.conversionResult.status}}">
+                        </umb-box-header>
+                        <umb-box-content>
+                            <div class="conversion-results">
+                                <div class="result-summary">
+                                    <div class="result-stat">
+                                        <div class="result-stat__value success">{{vm.conversionResult.successCount}}</div>
+                                        <div class="result-stat__label">Success</div>
+                                    </div>
+                                    <div class="result-stat">
+                                        <div class="result-stat__value warning">{{vm.conversionResult.skippedCount}}</div>
+                                        <div class="result-stat__label">Skipped</div>
+                                    </div>
+                                    <div class="result-stat">
+                                        <div class="result-stat__value error">{{vm.conversionResult.failureCount}}</div>
+                                        <div class="result-stat__label">Failed</div>
+                                    </div>
+                                </div>
+
+                                <div class="mt3" ng-if="vm.conversionResult.duration">
+                                    <strong>Duration:</strong> {{vm.formatDuration(vm.conversionResult.duration)}}
+                                </div>
+
+                                <div class="mt3" ng-if="vm.conversionResult.errorMessage">
+                                    <div class="alert alert-error">
+                                        <strong>Error:</strong> {{vm.conversionResult.errorMessage}}
+                                    </div>
+                                </div>
+
+                                <div class="mt3">
+                                    <umb-button action="vm.viewConversionDetails(vm.conversionResult.conversionId)"
+                                               type="button"
+                                               button-style="link"
+                                               label="View Detailed Logs"
+                                               icon="icon-list">
+                                    </umb-button>
+                                </div>
+                            </div>
+                        </umb-box-content>
+                    </umb-box>
+
+                </div>
+            </div>
+        </umb-editor-container>
+    </umb-editor-view>
+</div>

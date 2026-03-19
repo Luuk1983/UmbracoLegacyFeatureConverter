@@ -1,0 +1,100 @@
+<div ng-controller="legacyConverter.history.controller as vm" id="legacyConverterHistory">
+    <umb-editor-view>
+        <umb-editor-header name="'Conversion History'"
+                           hide-description="true"
+                           name-locked="true"
+                           hide-icon="true"
+                           hide-alias="true">
+        </umb-editor-header>
+
+        <umb-editor-container>
+            <div class="umb-logviewer">
+                <div class="umb-logviewer__main-content">
+
+                    <umb-box>
+                        <umb-box-header title="Past Conversions" 
+                                      description="View all conversion runs including test runs.">
+                            <umb-button action="vm.backToOverview()"
+                                       type="button"
+                                       button-style="link"
+                                       label="Back to Converter"
+                                       icon="icon-arrow-left">
+                            </umb-button>
+                        </umb-box-header>
+
+                        <umb-box-content>
+                            <div class="umb-load-indicator" ng-if="vm.loading"></div>
+
+                            <div ng-if="!vm.loading && vm.history.items.length === 0">
+                                <umb-empty-state size="small">
+                                    No conversion history found. Run a conversion to see it here.
+                                </umb-empty-state>
+                            </div>
+
+                            <div ng-if="!vm.loading && vm.history.items.length > 0">
+                                <div class="history-list">
+                                    <div class="history-item" 
+                                         ng-repeat="item in vm.history.items"
+                                         ng-click="vm.viewDetails(item.id)">
+                                        
+                                        <div class="history-item__header">
+                                            <div class="history-item__title">
+                                                <umb-icon icon="{{vm.getStatusIcon(item.status)}}" 
+                                                         class="mr2 {{vm.getStatusClass(item.status)}}">
+                                                </umb-icon>
+                                                <strong>{{item.converterType}}</strong>
+                                                <span class="badge badge-test" ng-if="item.isTestRun">TEST RUN</span>
+                                            </div>
+                                            <span class="history-item__date">{{vm.formatDate(item.startedAt)}}</span>
+                                        </div>
+
+                                        <div class="history-item__stats">
+                                            <span class="stat success" ng-if="item.successCount > 0">
+                                                <umb-icon icon="icon-check" class="stat-icon"></umb-icon>
+                                                {{item.successCount}} success
+                                            </span>
+                                            <span class="stat warning" ng-if="item.skippedCount > 0">
+                                                <umb-icon icon="icon-info" class="stat-icon"></umb-icon>
+                                                {{item.skippedCount}} skipped
+                                            </span>
+                                            <span class="stat error" ng-if="item.failureCount > 0">
+                                                <umb-icon icon="icon-delete" class="stat-icon"></umb-icon>
+                                                {{item.failureCount}} failed
+                                            </span>
+                                        </div>
+
+                                        <div class="history-item__summary">
+                                            <span>{{item.totalDocumentTypes}} document types</span>
+                                            <span class="separator">•</span>
+                                            <span>{{item.totalDataTypes}} data types</span>
+                                            <span class="separator">•</span>
+                                            <span>{{item.totalContentNodes}} content nodes</span>
+                                        </div>
+
+                                        <div class="history-item__action">
+                                            <umb-button action="vm.viewDetails(item.id)"
+                                                       type="button"
+                                                       button-style="link"
+                                                       label="View Details"
+                                                       icon="icon-zoom-in">
+                                            </umb-button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <umb-pagination ng-if="vm.history.totalPages > 1"
+                                              page-number="vm.history.pageNumber"
+                                              total-pages="vm.history.totalPages"
+                                              on-next="vm.nextPage"
+                                              on-prev="vm.prevPage"
+                                              on-go-to-page="vm.goToPage">
+                                </umb-pagination>
+                            </div>
+                        </umb-box-content>
+                    </umb-box>
+
+                </div>
+            </div>
+        </umb-editor-container>
+    </umb-editor-view>
+</div>

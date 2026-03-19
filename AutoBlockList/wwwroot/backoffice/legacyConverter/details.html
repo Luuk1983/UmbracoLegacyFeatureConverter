@@ -1,0 +1,141 @@
+<div ng-controller="legacyConverter.details.controller as vm" id="legacyConverterDetails">
+    <umb-editor-view>
+        <umb-editor-header name="'Conversion Details'"
+                           hide-description="true"
+                           name-locked="true"
+                           hide-icon="true"
+                           hide-alias="true">
+        </umb-editor-header>
+
+        <umb-editor-container>
+            <div class="umb-logviewer">
+                <div class="umb-logviewer__main-content">
+
+                    <div class="umb-load-indicator" ng-if="vm.loading"></div>
+
+                    <div ng-if="!vm.loading && !vm.details">
+                        <umb-empty-state size="small">
+                            Conversion not found.
+                        </umb-empty-state>
+                        <umb-button action="vm.backToHistory()"
+                                   type="button"
+                                   button-style="link"
+                                   label="Back to History">
+                        </umb-button>
+                    </div>
+
+                    <div ng-if="!vm.loading && vm.details">
+                        
+                        <!-- Conversion Summary -->
+                        <umb-box>
+                            <umb-box-header title="Summary">
+                                <umb-button action="vm.backToHistory()"
+                                           type="button"
+                                           button-style="link"
+                                           label="Back to History"
+                                           icon="icon-arrow-left">
+                                </umb-button>
+                            </umb-box-header>
+                            <umb-box-content>
+                                <div class="details-summary">
+                                    <div class="summary-row">
+                                        <span class="summary-label">Converter:</span>
+                                        <span class="summary-value">{{vm.details.history.converterType}}</span>
+                                        <span class="badge badge-test ml2" ng-if="vm.details.history.isTestRun">TEST RUN</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span class="summary-label">Status:</span>
+                                        <span class="summary-value">
+                                            <umb-icon icon="{{vm.getStatusIcon(vm.details.history.status)}}" 
+                                                     class="{{vm.getStatusClass(vm.details.history.status)}}">
+                                            </umb-icon>
+                                            {{vm.details.history.status}}
+                                        </span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span class="summary-label">Started:</span>
+                                        <span class="summary-value">{{vm.formatDate(vm.details.history.startedAt)}}</span>
+                                    </div>
+                                    <div class="summary-row" ng-if="vm.details.history.completedAt">
+                                        <span class="summary-label">Completed:</span>
+                                        <span class="summary-value">{{vm.formatDate(vm.details.history.completedAt)}}</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span class="summary-label">Results:</span>
+                                        <span class="summary-value">
+                                            <span class="result-badge success">{{vm.details.history.successCount}} success</span>
+                                            <span class="result-badge warning">{{vm.details.history.skippedCount}} skipped</span>
+                                            <span class="result-badge error">{{vm.details.history.failureCount}} failed</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </umb-box-content>
+                        </umb-box>
+
+                        <!-- Detailed Logs -->
+                        <umb-box>
+                            <umb-box-header title="Detailed Logs" 
+                                          description="{{vm.details.logs.length}} log entries">
+                            </umb-box-header>
+                            <umb-box-content>
+                                <div class="log-filters mb3">
+                                    <label>
+                                        <input type="checkbox" ng-model="vm.filters.showInfo" ng-change="vm.filterLogs()">
+                                        Info
+                                    </label>
+                                    <label class="ml2">
+                                        <input type="checkbox" ng-model="vm.filters.showWarning" ng-change="vm.filterLogs()">
+                                        Warning
+                                    </label>
+                                    <label class="ml2">
+                                        <input type="checkbox" ng-model="vm.filters.showError" ng-change="vm.filterLogs()">
+                                        Error
+                                    </label>
+                                </div>
+
+                                <div class="log-entries">
+                                    <div class="log-entry" 
+                                         ng-repeat="log in vm.filteredLogs"
+                                         ng-class="'log-level-' + log.level.toLowerCase()">
+                                        
+                                        <div class="log-entry__header">
+                                            <umb-icon icon="{{vm.getLogIcon(log.level)}}" 
+                                                     class="log-entry__icon {{vm.getLogClass(log.level)}}">
+                                            </umb-icon>
+                                            <span class="log-entry__timestamp">{{vm.formatTime(log.timestamp)}}</span>
+                                            <span class="log-entry__type">{{log.itemType}}</span>
+                                            <span class="log-entry__name" ng-if="log.itemName">- {{log.itemName}}</span>
+                                        </div>
+
+                                        <div class="log-entry__message">
+                                            {{log.message}}
+                                        </div>
+
+                                        <div class="log-entry__details" ng-if="log.details">
+                                            <button type="button" 
+                                                   class="btn-link"
+                                                   ng-click="log.showDetails = !log.showDetails; $event.stopPropagation()">
+                                                {{log.showDetails ? 'Hide' : 'Show'}} Details
+                                            </button>
+                                            <pre ng-if="log.showDetails" class="log-details">{{log.details}}</pre>
+                                        </div>
+
+                                        <div class="log-entry__stacktrace" ng-if="log.stackTrace">
+                                            <button type="button" 
+                                                   class="btn-link"
+                                                   ng-click="log.showStack = !log.showStack; $event.stopPropagation()">
+                                                {{log.showStack ? 'Hide' : 'Show'}} Stack Trace
+                                            </button>
+                                            <pre ng-if="log.showStack" class="log-details error">{{log.stackTrace}}</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </umb-box-content>
+                        </umb-box>
+
+                    </div>
+                </div>
+            </div>
+        </umb-editor-container>
+    </umb-editor-view>
+</div>

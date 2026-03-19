@@ -111,10 +111,10 @@ angular.module("umbraco").controller("autoBlockList.overview.controller", functi
 
         var confirmOptions = {
             title: "Confirm convert",
-            view: "/App_Plugins/AutoBlockList/components/overlays/confirmMacro.html",
+            view: "/App_Plugins/LegacyFeatureConverter/components/overlays/confirmMacro.html",
             submit: function () {
                 var options = {
-                    view: "/App_Plugins/AutoBlockList/components/overlays/converting.html",
+                    view: "/App_Plugins/LegacyFeatureConverter/components/overlays/converting.html",
                     title: "Converting",
                     content: vm.selectedMacroContent,
                     convertType: "Macro",
@@ -166,10 +166,10 @@ angular.module("umbraco").controller("autoBlockList.overview.controller", functi
 
         var confirmOptions = {
             title: "Confirm convert",
-            view: "/App_Plugins/AutoBlockList/components/overlays/confirm.html",
+            view: "/App_Plugins/LegacyFeatureConverter/components/overlays/confirm.html",
             submit: function () {
                 var options = {
-                    view: "/App_Plugins/AutoBlockList/components/overlays/converting.html",
+                    view: "/App_Plugins/LegacyFeatureConverter/components/overlays/converting.html",
                     title: "Converting",
                     content: vm.selectedContent,
                     convertType: "NC",
