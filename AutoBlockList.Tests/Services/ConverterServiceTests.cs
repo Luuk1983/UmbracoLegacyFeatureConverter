@@ -1,9 +1,9 @@
-using AutoBlockList.Services;
-using AutoBlockList.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core.Services;
+using Umbraco.Community.LegacyFeatureConverter.Converters;
+using Umbraco.Community.LegacyFeatureConverter.Services;
 
-namespace AutoBlockList.Tests.Services
+namespace Umbraco.Community.LegacyFeatureConverter.Tests.Services
 {
     /// <summary>
     /// Tests for ConverterService.
@@ -26,8 +26,8 @@ namespace AutoBlockList.Tests.Services
         public void GetAllConverters_ReturnsAllRegisteredConverters()
         {
             // Arrange
-            var mockConverter1 = new Mock<AutoBlockList.Converters.IPropertyConverter>();
-            var mockConverter2 = new Mock<AutoBlockList.Converters.IPropertyConverter>();
+            var mockConverter1 = new Mock<IPropertyConverter>();
+            var mockConverter2 = new Mock<IPropertyConverter>();
             var converters = new[] { mockConverter1.Object, mockConverter2.Object };
             
             _service = new ConverterService(converters, _mockContentTypeService.Object, _mockLogger.Object);
@@ -43,10 +43,10 @@ namespace AutoBlockList.Tests.Services
         public void GetConverterByName_ReturnsCorrectConverter()
         {
             // Arrange
-            var mockConverter1 = new Mock<AutoBlockList.Converters.IPropertyConverter>();
+            var mockConverter1 = new Mock<IPropertyConverter>();
             mockConverter1.Setup(x => x.ConverterName).Returns("Converter One");
             
-            var mockConverter2 = new Mock<AutoBlockList.Converters.IPropertyConverter>();
+            var mockConverter2 = new Mock<IPropertyConverter>();
             mockConverter2.Setup(x => x.ConverterName).Returns("Converter Two");
             
             var converters = new[] { mockConverter1.Object, mockConverter2.Object };
@@ -64,7 +64,7 @@ namespace AutoBlockList.Tests.Services
         public void GetConverterByName_IsCaseInsensitive()
         {
             // Arrange
-            var mockConverter = new Mock<AutoBlockList.Converters.IPropertyConverter>();
+            var mockConverter = new Mock<IPropertyConverter>();
             mockConverter.Setup(x => x.ConverterName).Returns("Nested Content Converter");
             
             var converters = new[] { mockConverter.Object };
@@ -81,7 +81,7 @@ namespace AutoBlockList.Tests.Services
         public void GetConverterByName_ReturnsNull_WhenNotFound()
         {
             // Arrange
-            var mockConverter = new Mock<AutoBlockList.Converters.IPropertyConverter>();
+            var mockConverter = new Mock<IPropertyConverter>();
             mockConverter.Setup(x => x.ConverterName).Returns("Existing Converter");
             
             var converters = new[] { mockConverter.Object };

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoBlockList.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Umbraco.Cms.Core;
@@ -11,11 +10,12 @@ using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Serialization;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.Scoping;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
 using Umbraco.Extensions;
 using static Umbraco.Cms.Core.Constants;
 using DataType = Umbraco.Cms.Core.Models.DataType;
 
-namespace AutoBlockList.Converters
+namespace Umbraco.Community.LegacyFeatureConverter.Converters
 {
     /// <summary>
     /// Converts legacy Media Picker properties (MediaPicker2, MultipleMediaPicker) to MediaPicker3.

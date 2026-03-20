@@ -1,13 +1,13 @@
 using System;
 
-namespace AutoBlockList.Models
+namespace Umbraco.Community.LegacyFeatureConverter.Models;
+
+/// <summary>
+/// Represents a single log entry for a conversion operation.
+/// Provides detailed information about each step of the conversion process.
+/// </summary>
+public class ConversionLogEntry
 {
-    /// <summary>
-    /// Represents a single log entry for a conversion operation.
-    /// Provides detailed information about each step of the conversion process.
-    /// </summary>
-    public class ConversionLogEntry
-    {
         /// <summary>
         /// Gets or sets the unique identifier for this log entry.
         /// </summary>
@@ -54,9 +54,8 @@ namespace AutoBlockList.Models
         /// </summary>
         public string? Details { get; set; }
 
-        /// <summary>
-        /// Gets or sets the exception stack trace (only for errors).
-        /// </summary>
-        public string? StackTrace { get; set; }
-    }
-}
+            /// <summary>
+            /// Gets or sets the exception stack trace (only for errors).
+            /// </summary>
+            public string? StackTrace { get; set; }
+        }

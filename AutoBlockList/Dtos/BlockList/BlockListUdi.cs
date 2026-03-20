@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AutoBlockList.Dtos.BlockList
+namespace Umbraco.Community.LegacyFeatureConverter.Dtos.BlockList
 {
     public class BlockListUdi
     {

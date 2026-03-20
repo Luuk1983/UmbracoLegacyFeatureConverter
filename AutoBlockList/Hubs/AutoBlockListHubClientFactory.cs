@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.SignalR;
 
-namespace AutoBlockList.Hubs
+namespace Umbraco.Community.LegacyFeatureConverter.Hubs
 {
     public interface IAutoBlockListHubClientFactory
     {

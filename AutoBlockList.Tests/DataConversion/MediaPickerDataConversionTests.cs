@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using Umbraco.Cms.Core;
 
 namespace AutoBlockList.Tests.DataConversion

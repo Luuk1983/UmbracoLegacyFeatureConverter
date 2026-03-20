@@ -1,7 +1,7 @@
 ﻿using Umbraco.Cms.Core.Models;
 using System.Runtime.Serialization;
 
-namespace AutoBlockList.Dtos
+namespace Umbraco.Community.LegacyFeatureConverter.Dtos
 {
     public class DisplayAutoBlockListContent : AutoBlockListContent
 	{

@@ -1,6 +1,6 @@
 ﻿using static Umbraco.Cms.Core.Constants;
 
-namespace AutoBlockList.Constants
+namespace Umbraco.Community.LegacyFeatureConverter.Constants
 {
     public static class AutoBlockListConstants
     {

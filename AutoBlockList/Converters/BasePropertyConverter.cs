@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoBlockList.Models;
-using AutoBlockList.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.Scoping;
+using Umbraco.Community.LegacyFeatureConverter.Models;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
 
-namespace AutoBlockList.Converters
+namespace Umbraco.Community.LegacyFeatureConverter.Converters
 {
     /// <summary>
     /// Base class for property editor converters providing common conversion workflow logic.

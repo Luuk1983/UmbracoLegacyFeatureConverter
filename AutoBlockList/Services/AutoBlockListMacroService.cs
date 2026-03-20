@@ -1,16 +1,13 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
 using Umbraco.Cms.Core;
-using AutoBlockList.Dtos;
 using Umbraco.Extensions;
 using Umbraco.Cms.Core.IO;
 using Newtonsoft.Json.Linq;
-using AutoBlockList.Constants;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Strings;
 using Umbraco.Cms.Core.Services;
 using CSharpTest.Net.Collections;
-using AutoBlockList.Dtos.BlockList;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text.RegularExpressions;
@@ -18,11 +15,14 @@ using Umbraco.Cms.Core.Models.Blocks;
 using Umbraco.Cms.Core.Serialization;
 using Microsoft.Extensions.Primitives;
 using Umbraco.Cms.Core.PropertyEditors;
-using AutoBlockList.Services.interfaces;
 using static Umbraco.Cms.Core.Constants;
 using static Umbraco.Cms.Core.PropertyEditors.RichTextConfiguration;
+using Umbraco.Community.LegacyFeatureConverter.Constants;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
+using Umbraco.Community.LegacyFeatureConverter.Dtos;
+using Umbraco.Community.LegacyFeatureConverter.Dtos.BlockList;
 
-namespace AutoBlockList.Services
+namespace Umbraco.Community.LegacyFeatureConverter.Services
 {
 	public class AutoBlockListMacroService : IAutoBlockListMacroService
 	{

@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace AutoBlockList.Dtos.BlockList
+namespace Umbraco.Community.LegacyFeatureConverter.Dtos.BlockList
 {
     public class BlockList
     {

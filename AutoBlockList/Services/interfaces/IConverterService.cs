@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoBlockList.Converters;
-using AutoBlockList.Models;
+using Umbraco.Community.LegacyFeatureConverter.Models;
+using Umbraco.Community.LegacyFeatureConverter.Converters;
 
-namespace AutoBlockList.Services.Interfaces
+namespace Umbraco.Community.LegacyFeatureConverter.Services.interfaces
 {
     /// <summary>
     /// Service for discovering and managing property converters.

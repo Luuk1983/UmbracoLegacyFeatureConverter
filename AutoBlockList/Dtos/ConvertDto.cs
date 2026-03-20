@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace AutoBlockList.Dtos
+namespace Umbraco.Community.LegacyFeatureConverter.Dtos
 {
 	public class ConvertDto
 	{

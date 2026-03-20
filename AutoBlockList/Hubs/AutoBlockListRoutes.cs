@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Umbraco.Cms.Web.Common.Routing;
 using Umbraco.Cms.Core.Configuration.Models;
 
-namespace AutoBlockList.Hubs
+namespace Umbraco.Community.LegacyFeatureConverter.Hubs
 {
 	public class AutoBlockListHubRoutes : IAreaRoutes
 	{

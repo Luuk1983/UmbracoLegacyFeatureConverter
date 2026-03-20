@@ -1,7 +1,7 @@
-﻿using AutoBlockList.Dtos;
-using Umbraco.Cms.Core.Models;
+﻿using Umbraco.Cms.Core.Models;
+using Umbraco.Community.LegacyFeatureConverter.Dtos;
 
-namespace AutoBlockList.Services.interfaces
+namespace Umbraco.Community.LegacyFeatureConverter.Services.interfaces
 {
     public interface IAutoBlockListService
     {

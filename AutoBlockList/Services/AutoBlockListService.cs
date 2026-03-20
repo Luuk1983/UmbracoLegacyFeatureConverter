@@ -1,23 +1,23 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Umbraco.Cms.Core;
-using AutoBlockList.Dtos;
 using Umbraco.Extensions;
-using AutoBlockList.Constants;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Strings;
 using Umbraco.Cms.Core.Services;
-using AutoBlockList.Dtos.BlockList;
+using Umbraco.Community.LegacyFeatureConverter.Dtos.BlockList;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Serialization;
 using Umbraco.Cms.Core.PropertyEditors;
-using AutoBlockList.Services.interfaces;
 using static Umbraco.Cms.Core.Constants;
 using DataType = Umbraco.Cms.Core.Models.DataType;
 using static Umbraco.Cms.Core.PropertyEditors.BlockListConfiguration;
+using Umbraco.Community.LegacyFeatureConverter.Constants;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
+using Umbraco.Community.LegacyFeatureConverter.Dtos;
 
-namespace AutoBlockList.Services
+namespace Umbraco.Community.LegacyFeatureConverter.Services
 {
     public class AutoBlockListService : IAutoBlockListService
     {

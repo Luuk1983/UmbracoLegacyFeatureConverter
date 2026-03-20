@@ -1,10 +1,10 @@
-using AutoBlockList.Converters;
-using AutoBlockList.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Serialization;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.Scoping;
+using Umbraco.Community.LegacyFeatureConverter.Converters;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
 
 namespace AutoBlockList.Tests.Converters
 {

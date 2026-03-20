@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoBlockList.Models;
 using Microsoft.Extensions.Logging;
+using Umbraco.Community.LegacyFeatureConverter.Models;
 
-namespace AutoBlockList.Services.Interfaces
+namespace Umbraco.Community.LegacyFeatureConverter.Services.interfaces
 {
     /// <summary>
     /// Service for managing conversion history and logging.

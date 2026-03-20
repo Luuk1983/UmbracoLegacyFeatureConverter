@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AutoBlockList.Models
+namespace Umbraco.Community.LegacyFeatureConverter.Models
 {
     /// <summary>
     /// Represents the complete result of a conversion operation.

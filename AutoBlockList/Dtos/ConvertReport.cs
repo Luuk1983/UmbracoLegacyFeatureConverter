@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
-using static AutoBlockList.Constants.AutoBlockListConstants;
+using static Umbraco.Community.LegacyFeatureConverter.Constants.AutoBlockListConstants;
 
-namespace AutoBlockList.Dtos
+namespace Umbraco.Community.LegacyFeatureConverter.Dtos
 {
     public class ConvertReport
     {

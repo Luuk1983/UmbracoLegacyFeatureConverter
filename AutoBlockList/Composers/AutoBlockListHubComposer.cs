@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using Umbraco.Extensions;
-using AutoBlockList.Hubs;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Composing;
@@ -10,8 +9,9 @@ using Microsoft.AspNetCore.Builder;
 using Umbraco.Cms.Core.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
+using Umbraco.Community.LegacyFeatureConverter.Hubs;
 
-namespace AutoBlockList.Composers
+namespace Umbraco.Community.LegacyFeatureConverter.Composers
 {
 	public class AutoBlockListHubComposer : IComposer
 	{

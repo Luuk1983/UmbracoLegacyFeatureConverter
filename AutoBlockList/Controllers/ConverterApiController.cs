@@ -1,13 +1,13 @@
-using AutoBlockList.Models;
-using AutoBlockList.Services.Interfaces;
+using Umbraco.Community.LegacyFeatureConverter.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Web.Common.Authorization;
 using Umbraco.Cms.Web.Common.Attributes;
 using Umbraco.Cms.Web.Common.Controllers;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
 
-namespace AutoBlockList.Controllers;
+namespace Umbraco.Community.LegacyFeatureConverter.Controllers;
 
 /// <summary>
 /// API controller for the new converter-based functionality.

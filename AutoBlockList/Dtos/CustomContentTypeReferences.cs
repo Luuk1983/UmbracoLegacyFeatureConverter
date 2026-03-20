@@ -1,4 +1,4 @@
-﻿namespace AutoBlockList.Dtos
+﻿namespace Umbraco.Community.LegacyFeatureConverter.Dtos
 {
     public class CustomContentTypeReferences
     {

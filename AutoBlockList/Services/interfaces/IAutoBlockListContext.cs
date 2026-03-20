@@ -1,6 +1,6 @@
-using AutoBlockList.Hubs;
+using Umbraco.Community.LegacyFeatureConverter.Hubs;
 
-namespace AutoBlockList.Services.interfaces
+namespace Umbraco.Community.LegacyFeatureConverter.Services.interfaces
 {
 	public interface IAutoBlockListContext
 	{

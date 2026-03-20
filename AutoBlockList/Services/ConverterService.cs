@@ -1,24 +1,25 @@
-using AutoBlockList.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core.Services;
+using Umbraco.Community.LegacyFeatureConverter.Converters;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
 
-namespace AutoBlockList.Services;
+namespace Umbraco.Community.LegacyFeatureConverter.Services;
 
 /// <summary>
 /// Service for discovering and managing property converters.
 /// Database-agnostic service that works with all Umbraco-supported databases.
 /// </summary>
 public class ConverterService(
-    IEnumerable<Converters.IPropertyConverter> converters,
+    IEnumerable<IPropertyConverter> converters,
     IContentTypeService contentTypeService,
     ILogger<ConverterService> logger) : IConverterService
 {
-    public IEnumerable<Converters.IPropertyConverter> GetAllConverters()
+    public IEnumerable<IPropertyConverter> GetAllConverters()
     {
         return converters;
     }
 
-            public Converters.IPropertyConverter? GetConverterByName(string converterName)
+            public IPropertyConverter? GetConverterByName(string converterName)
             {
                 return converters.FirstOrDefault(c => 
                     c.ConverterName.Equals(converterName, StringComparison.OrdinalIgnoreCase));

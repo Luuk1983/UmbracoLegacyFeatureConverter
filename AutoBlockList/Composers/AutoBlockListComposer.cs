@@ -1,15 +1,15 @@
-﻿using AutoBlockList.Dtos;
-using AutoBlockList.Hubs;
-using AutoBlockList.Services;
-using AutoBlockList.Backoffice;
-using Umbraco.Cms.Core.Composing;
-using AutoBlockList.Notifications;
+﻿using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.Notifications;
-using AutoBlockList.Services.interfaces;
 using Umbraco.Cms.Core.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
+using Umbraco.Community.LegacyFeatureConverter.Backoffice;
+using Umbraco.Community.LegacyFeatureConverter.Notifications;
+using Umbraco.Community.LegacyFeatureConverter.Hubs;
+using Umbraco.Community.LegacyFeatureConverter.Services;
+using Umbraco.Community.LegacyFeatureConverter.Dtos;
 
-namespace AutoBlockList.Composers
+namespace Umbraco.Community.LegacyFeatureConverter.Composers
 {
     public class AutoBlockListComposer : IComposer
     {

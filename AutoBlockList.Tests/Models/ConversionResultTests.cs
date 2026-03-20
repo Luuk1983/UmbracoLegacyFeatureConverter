@@ -1,6 +1,6 @@
-using AutoBlockList.Models;
+using Umbraco.Community.LegacyFeatureConverter.Models;
 
-namespace AutoBlockList.Tests.Models
+namespace Umbraco.Community.LegacyFeatureConverter.Tests.Models
 {
     /// <summary>
     /// Tests for ConversionResult model calculations.

@@ -1,11 +1,11 @@
-using AutoBlockList.Converters;
-using AutoBlockList.Services;
-using AutoBlockList.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Community.LegacyFeatureConverter.Converters;
+using Umbraco.Community.LegacyFeatureConverter.Services;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
 
-namespace AutoBlockList.Composers;
+namespace Umbraco.Community.LegacyFeatureConverter.Composers;
 
 /// <summary>
 /// Composer to register property converters as scoped services.

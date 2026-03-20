@@ -1,6 +1,6 @@
 ﻿using Umbraco.Cms.Core.Manifest;
 
-namespace AutoBlockList.Backoffice;
+namespace Umbraco.Community.LegacyFeatureConverter.Backoffice;
 
 public class AutoBlockListManifestFilter : IManifestFilter
 {

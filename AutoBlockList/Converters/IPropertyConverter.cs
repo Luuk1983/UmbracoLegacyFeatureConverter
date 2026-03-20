@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using AutoBlockList.Models;
+using Umbraco.Community.LegacyFeatureConverter.Models;
 
-namespace AutoBlockList.Converters
+namespace Umbraco.Community.LegacyFeatureConverter.Converters
 {
     /// <summary>
     /// Defines the contract for property editor converters.

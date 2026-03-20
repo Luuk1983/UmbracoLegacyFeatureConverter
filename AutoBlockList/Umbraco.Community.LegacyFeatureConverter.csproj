@@ -40,7 +40,7 @@
 		</ItemGroup>
 
 		<ItemGroup>
-		  <Folder Include="Migrations\Sqlite\" />
+		  <Folder Include="Migrations\SqlServer\" />
 		</ItemGroup>
 
 </Project>

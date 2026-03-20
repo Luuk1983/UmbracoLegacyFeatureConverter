@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoBlockList.Constants;
-using AutoBlockList.Dtos;
-using AutoBlockList.Dtos.BlockList;
-using AutoBlockList.Services.Interfaces;
+
+using Umbraco.Community.LegacyFeatureConverter.Dtos.BlockList;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -17,12 +11,15 @@ using Umbraco.Cms.Core.Serialization;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Strings;
 using Umbraco.Cms.Infrastructure.Scoping;
+using Umbraco.Community.LegacyFeatureConverter.Constants;
+using Umbraco.Community.LegacyFeatureConverter.Dtos;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
 using Umbraco.Extensions;
 using static Umbraco.Cms.Core.Constants;
 using static Umbraco.Cms.Core.PropertyEditors.BlockListConfiguration;
 using DataType = Umbraco.Cms.Core.Models.DataType;
 
-namespace AutoBlockList.Converters
+namespace Umbraco.Community.LegacyFeatureConverter.Converters
 {
     /// <summary>
     /// Converts Nested Content properties to Block List properties.

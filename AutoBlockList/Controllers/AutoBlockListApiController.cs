@@ -1,34 +1,28 @@
 ﻿using NPoco;
-using System.Linq;
-using Newtonsoft.Json;
 using Umbraco.Cms.Core;
-using AutoBlockList.Dtos;
-using AutoBlockList.Hubs;
 using Umbraco.Extensions;
-using AutoBlockList.Services;
 using Umbraco.Cms.Core.Cache;
-using AutoBlockList.Constants;
 using Umbraco.Cms.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Services;
-using AutoBlockList.Dtos.BlockList;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
-using Umbraco.Cms.Core.Models.Blocks;
 using Umbraco.Cms.Core.PropertyEditors;
-using AutoBlockList.Services.interfaces;
 using Umbraco.Cms.Web.Common.Attributes;
 using static Umbraco.Cms.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Umbraco.Cms.Infrastructure.Scoping;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Authorization;
-using System.ComponentModel.DataAnnotations;
 using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Infrastructure.Persistence.Querying;
+using Umbraco.Community.LegacyFeatureConverter.Constants;
+using Umbraco.Community.LegacyFeatureConverter.Hubs;
+using Umbraco.Community.LegacyFeatureConverter.Dtos;
+using Umbraco.Community.LegacyFeatureConverter.Services.interfaces;
 
-namespace AutoBlockList.Controllers
+namespace Umbraco.Community.LegacyFeatureConverter.Controllers
 {
 	[IsBackOffice]
 	[Authorize(Policy = AuthorizationPolicies.SectionAccessSettings)]
@@ -104,7 +98,7 @@ namespace AutoBlockList.Controllers
 
 		#region Macros
 		[HttpGet]
-		public PagedResult<DisplayAutoBlockListContent> GetAllContentWithTinyMce(int page)
+		public Cms.Core.Models.PagedResult<DisplayAutoBlockListContent> GetAllContentWithTinyMce(int page)
 		{
 			var contentTypes = _runtimeCache.GetCacheItem(AutoBlockListConstants.TinyMCECacheKey, () =>
 			{
@@ -115,7 +109,7 @@ namespace AutoBlockList.Controllers
 			});
 
 			if (contentTypes == null || !contentTypes.Any())
-				return new PagedResult<DisplayAutoBlockListContent>(0, 0, 0);
+				return new Cms.Core.Models.PagedResult<DisplayAutoBlockListContent>(0, 0, 0);
 
 			var contentTypesIds = contentTypes.Select(x => x.Id).ToList();
 			contentTypesIds.AddRange(_autoBlockListService.GetComposedOf(contentTypesIds));
@@ -129,7 +123,7 @@ namespace AutoBlockList.Controllers
 			}
 
 			if (!tinyMcePropertyTypeIds.Any())
-				return new PagedResult<DisplayAutoBlockListContent>(0, 0, 0);
+				return new Cms.Core.Models.PagedResult<DisplayAutoBlockListContent>(0, 0, 0);
 
 			tinyMcePropertyTypeIds = tinyMcePropertyTypeIds.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
 
@@ -143,7 +137,7 @@ namespace AutoBlockList.Controllers
 				});
 
 				if (pagedResult == null)
-					return new PagedResult<DisplayAutoBlockListContent>(0, 0, 0);
+					return new Cms.Core.Models.PagedResult<DisplayAutoBlockListContent>(0, 0, 0);
 
 				var nodeIds = pagedResult.Items.Select(x => x.NodeId).Distinct().ToArray();
 				var contentItems = _contentService.GetByIds(nodeIds).ToDictionary(c => c.Id);
@@ -164,7 +158,7 @@ namespace AutoBlockList.Controllers
 					})
 					.ToList();
 
-				var result = new PagedResult<DisplayAutoBlockListContent>(pagedResult.TotalItems, pagedResult.CurrentPage, pagedResult.ItemsPerPage)
+				var result = new Cms.Core.Models.PagedResult<DisplayAutoBlockListContent>(pagedResult.TotalItems, pagedResult.CurrentPage, pagedResult.ItemsPerPage)
 				{
 					Items = displayItems
 				};
@@ -343,7 +337,7 @@ namespace AutoBlockList.Controllers
 
 		#region NestedContent
 		[HttpGet]
-		public PagedResult<DisplayAutoBlockListContent> GetAllContentWithNC(int page)
+		public Cms.Core.Models.PagedResult<DisplayAutoBlockListContent> GetAllContentWithNC(int page)
 		{
 			var contentTypes = _runtimeCache.GetCacheItem(AutoBlockListConstants.CacheKey, () =>
 			{
@@ -353,14 +347,14 @@ namespace AutoBlockList.Controllers
 			});
 
 			if (contentTypes == null || !contentTypes.Any())
-				return new PagedResult<DisplayAutoBlockListContent>(0, 0, 0);
+				return new Cms.Core.Models.PagedResult<DisplayAutoBlockListContent>(0, 0, 0);
 
 			var contentTypesIds = contentTypes.Select(x => x.Id).ToList();
 			contentTypesIds.AddRange(_autoBlockListService.GetComposedOf(contentTypesIds));
 
 			var filter = new Query<IContent>(_scopeProvider.SqlContext).Where(x => !x.Trashed);
 			var items = _contentService.GetPagedOfTypes(contentTypesIds.ToArray(), page, 15, out long totalRecords, filter, null);
-			var result = new PagedResult<DisplayAutoBlockListContent>(totalRecords, page, 15);
+			var result = new Cms.Core.Models.PagedResult<DisplayAutoBlockListContent>(totalRecords, page, 15);
 			result.Items = items.Select(x => new DisplayAutoBlockListContent()
 			{
 				ContentType = x.ContentType,

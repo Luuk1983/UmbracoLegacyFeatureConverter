@@ -1,16 +1,32 @@
-using AutoBlockList.Models;
 using Microsoft.EntityFrameworkCore;
+using Umbraco.Community.LegacyFeatureConverter.Models;
 
-namespace AutoBlockList.Data;
+namespace Umbraco.Community.LegacyFeatureConverter.Data;
 
 /// <summary>
 /// DbContext for Legacy Feature Converter package.
 /// Handles conversion history and log entries.
-/// Schema is database-agnostic and works with SQL Server, SQLite, LocalDB, etc.
+/// Uses provider-specific migrations (SQL Server and SQLite) for proper type mapping.
 /// </summary>
-public class LegacyFeatureConverterDbContext(DbContextOptions<LegacyFeatureConverterDbContext> options) 
-    : DbContext(options)
+public class LegacyFeatureConverterDbContext : DbContext
 {
+    /// <summary>
+    /// Public constructor for direct instantiation (e.g., in DI).
+    /// </summary>
+    public LegacyFeatureConverterDbContext(DbContextOptions<LegacyFeatureConverterDbContext> options) 
+        : base(options)
+    {
+    }
+
+    /// <summary>
+    /// Protected constructor for derived classes.
+    /// Allows derived classes to pass their specific DbContextOptions&lt;DerivedType&gt; to base.
+    /// </summary>
+    protected LegacyFeatureConverterDbContext(DbContextOptions options)
+        : base(options)
+    {
+    }
+
     /// <summary>
     /// Gets or sets the conversion history records.
     /// </summary>
@@ -30,9 +46,9 @@ public class LegacyFeatureConverterDbContext(DbContextOptions<LegacyFeatureConve
         ConfigureConversionLogEntry(modelBuilder);
     }
 
-        /// <summary>
-        /// Configures the ConversionHistory entity.
-        /// </summary>
+    /// <summary>
+    /// Configures the ConversionHistory entity.
+    /// </summary>
         private static void ConfigureConversionHistory(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ConversionHistory>(entity =>

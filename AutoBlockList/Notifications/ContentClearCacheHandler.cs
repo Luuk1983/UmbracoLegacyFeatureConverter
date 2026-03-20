@@ -1,9 +1,9 @@
 ﻿using Umbraco.Cms.Core.Cache;
-using AutoBlockList.Constants;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
+using Umbraco.Community.LegacyFeatureConverter.Constants;
 
-namespace AutoBlockList.Notifications
+namespace Umbraco.Community.LegacyFeatureConverter.Notifications
 {
     public class ContentClearCacheHandler : INotificationHandler<ContentSavedNotification>,
 											INotificationHandler<ContentDeletedNotification>

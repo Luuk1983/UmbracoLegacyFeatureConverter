@@ -1,14 +1,13 @@
-using System;
 using System.Collections.Generic;
 
-namespace AutoBlockList.Models
+namespace Umbraco.Community.LegacyFeatureConverter.Models;
+
+/// <summary>
+/// Represents a conversion history record stored in the database.
+/// Tracks each conversion run for audit and debugging purposes.
+/// </summary>
+public class ConversionHistory
 {
-    /// <summary>
-    /// Represents a conversion history record stored in the database.
-    /// Tracks each conversion run for audit and debugging purposes.
-    /// </summary>
-    public class ConversionHistory
-    {
         /// <summary>
         /// Gets or sets the unique identifier for this conversion run.
         /// </summary>
@@ -91,4 +90,3 @@ namespace AutoBlockList.Models
         /// </summary>
         public ICollection<ConversionLogEntry> LogEntries { get; set; } = new List<ConversionLogEntry>();
     }
-}

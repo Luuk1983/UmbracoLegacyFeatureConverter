@@ -1,43 +1,50 @@
-using AutoBlockList.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
+using Umbraco.Community.LegacyFeatureConverter.Data;
 
-namespace AutoBlockList.Migrations;
+namespace Umbraco.Community.LegacyFeatureConverter.Migrations;
 
 /// <summary>
-/// Notification handler that ensures the database schema is created on application startup.
-/// Uses EF Core's schema creation based on OnModelCreating configuration.
-/// Works with any database provider (SQL Server, SQLite, LocalDB, etc.).
+/// Handles the creation and migration of the Legacy Feature Converter database when the Umbraco application starts.
+/// Uses provider-specific DbContext types to apply the correct migrations (SQL Server or SQLite).
 /// </summary>
 public class LegacyFeatureConverterDatabaseMigration(
+    IServiceProvider serviceProvider,
     LegacyFeatureConverterDbContext dbContext,
+    IOptionsMonitor<ConnectionStrings> connectionStrings,
     ILogger<LegacyFeatureConverterDatabaseMigration> logger) 
-    : INotificationAsyncHandler<UmbracoApplicationStartedNotification>
+    : INotificationAsyncHandler<UmbracoApplicationStartingNotification>
 {
-    public async Task HandleAsync(UmbracoApplicationStartedNotification notification, CancellationToken cancellationToken)
+    public async Task HandleAsync(UmbracoApplicationStartingNotification notification, CancellationToken cancellationToken)
     {
+        if (notification.RuntimeLevel != Umbraco.Cms.Core.RuntimeLevel.Run)
+        {
+            logger.LogInformation("LEGACY FEATURE CONVERTER: Skipping database migrations because runtime level is {RuntimeLevel}", 
+                notification.RuntimeLevel);
+            return;
+        }
+
+        var providerName = connectionStrings.CurrentValue.ProviderName;
+        logger.LogInformation("LEGACY FEATURE CONVERTER: Running database migrations for provider: {ProviderName}", providerName);
+
         try
         {
-            logger.LogInformation("Ensuring Legacy Feature Converter database schema exists");
 
-            // EnsureCreated will create the database schema if it doesn't exist
-            // It uses the configuration from OnModelCreating and generates the correct SQL
-            // for whatever database provider is configured (SQL Server, SQLite, etc.)
-            var created = await dbContext.Database.EnsureCreatedAsync(cancellationToken);
+            var hasMigrations = await dbContext.Database.GetPendingMigrationsAsync(cancellationToken);
+            // Note: We registered the BASE context, but migrations are in derived contexts
+            // EF Core will find the migrations through assembly scanning based on the provider configured
+            await dbContext.Database.MigrateAsync(cancellationToken);
 
-            if (created)
-            {
-                logger.LogInformation("Successfully created Legacy Feature Converter database schema");
-            }
-            else
-            {
-                logger.LogDebug("Legacy Feature Converter database schema already exists");
-            }
+            logger.LogInformation("LEGACY FEATURE CONVERTER: Migrations completed successfully");
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to ensure Legacy Feature Converter database schema");
+            logger.LogError(ex, "LEGACY FEATURE CONVERTER: An error occurred while migrating the database");
             throw;
         }
     }
